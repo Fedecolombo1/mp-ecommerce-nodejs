@@ -43,7 +43,7 @@ app.post("/comprar", function(req, res){
 
             /*external_reference: {"colombofederico17@gmail.com"},*/
 
-            payment_method: {
+            payment_methods: {
 
                 payer:{
                     name: "Lalo",
@@ -95,6 +95,16 @@ app.post("/comprar", function(req, res){
 
             notification_url: "https://mercadopago-fc.herokuapp.com/notifications",
 
+            /*back_urls: {
+                success: "https://localhost3000/callback?status=success",
+
+                pending: "https://localhost3000/callback?status=pending",
+
+                failure: "https://localhost3000/callback?status=failure"
+            },
+
+            notification_url: "https://localhost3000/notifications",*/
+
             auto_return: "approved",
         }
 
@@ -116,7 +126,7 @@ app.post("/comprar", function(req, res){
 
     app.get("/callback",function(req, res){
 
-        console.log(req.query);
+        console.log("HOLAAAA" + req.query);
 
         if(req.query.status.includes("success")){
             return res.render("success",{
