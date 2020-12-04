@@ -114,4 +114,30 @@ app.post("/comprar", function(req, res){
     
     })
 
+    app.get("/callback",function(req, res){
+
+        console.log(req.query);
+
+        if(req.query.status.includes("success")){
+            return res.render("success",{
+                payment_type: req.query.payment_type,
+                external_reference: req.query.external_reference,
+                collection_id: req.query.collection_id
+            })
+        }
+        if(req.query.status.includes("pending")){
+            return res.render("pending")
+        }
+        if(req.query.status.includes("failure")){
+            return res.render("failure")
+        }
+        
+    })
+
+    app.post("/notifications", function(req, res){
+        console.log("webhook", req.body);
+
+        res.status(200).end("Ok")
+    })
+
 app.listen(port);
