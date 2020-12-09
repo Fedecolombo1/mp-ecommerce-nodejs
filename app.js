@@ -80,9 +80,9 @@ app.post("/comprar", function(req, res){
                 {
                     id: 1234,
                     picture_url:"https://mercadopago-fc.herokuapp.com/assets/samsung-galaxy-s9-xxl.jpg",
-                    title: req.body.title,
+                    title: "Nombre del producto",
                     description: "Dispositivo móvil de Tienda e-commerce",
-                    unit_price: Number(req.body.price),
+                    unit_price: 999,
                     quantity: 1
                 }
             ],
