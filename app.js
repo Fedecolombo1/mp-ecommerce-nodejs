@@ -1,3 +1,9 @@
+const createError = require('http-errors');
+
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+
 var express = require('express');
 var exphbs  = require('express-handlebars');
 var port = process.env.PORT || 3000
@@ -11,11 +17,8 @@ app.use(express.static('assets'));
  
 app.use('/assets', express.static(__dirname + '/assets'));
 
-const app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -54,28 +57,28 @@ app.post("/comprar", function(req, res){
 
             /*external_reference: {"colombofederico17@gmail.com"},*/
 
+            payer:{
+                name: "Lalo",
+                surname: "Landa",
+                email: "test_user_63274575@testuser.com",
+                phone: {
+                    area_code: "11",
+                    number: 22223333
+                },
+                adress: {
+                    zip_code: 1111,
+                    street_name:"False",
+                    street_number: 123
+                }
+            },
+
             payment_methods: {
 
-                payer:{
-                    name: "Lalo",
-                    surname: "Landa",
-                    email: "test_user_63274575@testuser.com",
-                    phone: {
-                        area_code: "11",
-                        number: "22223333"
-                    },
-                    adress: {
-                        zip_code: 1111,
-                        street_name:"False",
-                        street_number: "123"
-                    }
-                },
-
-                exluded_payment_methods: [
+                excluded_payment_methods: [
                     { id : "amex" }
                 ],
 
-                exluded_payment_types: [
+                excluded_payment_types: [
                     { id : "atm" }
                 ],
 
@@ -163,20 +166,6 @@ app.post("/comprar", function(req, res){
 
 app.listen(port);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-    next(createError(404));
-  });
-  
-  // error handler
-  app.use(function(err, req, res, next) {
-    // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
-  
-    // render the error page
-    res.status(err.status || 500);
-    res.render('error');
-  });
+
   
   module.exports = app;
