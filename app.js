@@ -43,15 +43,6 @@ app.get('/detail', function (req, res) {
 });
 
 app.post("/comprar", function(req, res){
-        let item = {
-            id: "1",
-            picture_url:"",
-            title: "",
-            price: "",
-            description: "",
-            unit_price: "",
-            quantity: 1
-        }
         /* preference = un carrito */
         let preference = {
 
@@ -88,11 +79,10 @@ app.post("/comprar", function(req, res){
             items: [
                 {
                     id: 1234,
-                    picture_url:"https://mercadopagodh.herokuapp.com/images/products/jordan.jpg",
-                    title: "nombre del producto",
-                    price: 999,
+                    picture_url:"https://mercadopago-fc.herokuapp.com/assets/samsung-galaxy-s9-xxl.jpg",
+                    title: req.body.title,
                     description: "Dispositivo móvil de Tienda e-commerce",
-                    unit_price: 999,
+                    unit_price: Number(req.body.price),
                     quantity: 1
                 }
             ],
@@ -140,7 +130,7 @@ app.post("/comprar", function(req, res){
 
     app.get("/callback", function(req, res){
 
-        console.log("HOLAAAA" + req.query);
+        console.log(req.query);
 
         if(req.query.status.includes("success")){
             return res.render("success",{
@@ -156,6 +146,7 @@ app.post("/comprar", function(req, res){
             return res.render("failure")
         }
         
+        return res.status(404).end()
     })
 
     app.post("/notifications", function(req, res){
